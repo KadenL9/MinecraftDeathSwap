@@ -1,0 +1,9 @@
+name: DeathSwap
+author: KadenL9
+version: 1.0
+main: main.kaden.DeathSwap
+
+commands:
+  deathswap:
+    usage: /<command> (on) or (off)
+    description: Start the deathswap plugin
