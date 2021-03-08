@@ -1,8 +1,6 @@
 package main.kaden;
 
-
 import org.bukkit.plugin.java.JavaPlugin;
-
 
 import main.kaden.Commands.Activate;
 import main.kaden.Listeners.GlassUnbroken;
