@@ -33,6 +33,6 @@ In the case of __four or more players__, players will swap in random locations. 
 
 This plugin is inspired by Dream, a famous minecraft youtuber, who has used the Death Swap plugin in a few of his Youtube videos. This plugin is my own take on the classic Death Swap plugin. It is basically the same except I have added my own custom features and may have changed it slightly.
 
-> If you want to check Dream out or see the classic Death Swap plugin in play, go check out his Youtube channel
+> If you want to check out Dream or see the classic Death Swap plugin in play, go check out his Youtube channel
 > 
 > <a href = "https://www.youtube.com/channel/UCTkXRDQl0luXxVQrRQvWS6w" target = "_blank" rel = "noopener noreferrer"> [[ Dream's Youtube Channel ]] </a>
