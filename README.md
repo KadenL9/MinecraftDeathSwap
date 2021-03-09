@@ -2,7 +2,10 @@
 
 A Minecraft plugin for spigot and bukkit servers. Based on the classic Minecraft Death Swap where players swap positions and try to kill each other.
 
-# Rules
+# Rules and Mechanics
+
+## Basic Rules
+
 1.) There must be at least 2 players for Minecraft Death Swap to work.
 
 2.) The goal of Minecraft Death Swap is to get the other peson killed when you swap positions before you are killed.
@@ -15,13 +18,17 @@ A Minecraft plugin for spigot and bukkit servers. Based on the classic Minecraft
 
 6.) At the beginning of the game, all settings are set to default survival.
 
-# Swap Mechanics Based on Number of Players
+## Swap Mechanics Based on Number of Players
 Depending on the number of players, the swapping mechanic will work slightly differently.
 
-In the case of one player, the plugin will not start the game at all unless there are 2 or more people online.
+In the case of __one player__, the plugin will not start the game at all unless there are 2 or more people online.
 
-In the case of two players, players will swap with each other's positions. The first player to die will lose and the other player will win.
+In the case of __two players__, players will swap with each other's positions. The first player to die will lose and the other player will win.
 
-In the case of three players, players will swap with a set location. For example, if there is player 1, 2, and 3, player 1 will always teleport to player 2's location, player 2 will always swap to player 3's location, and player 3 will always swap to player 1's location.
+In the case of __three players__, players will swap with a set location. For example, if there is player 1, 2, and 3, player 1 will always teleport to player 2's location, player 2 will always swap to player 3's location, and player 3 will always swap to player 1's location.
 
-In the case of four or more players, players will swap in random locations. Each location will still be teleported to once by only one player; however, randomizing the destinations gives a small chance of some players to not teleport at all since they are "teleporting" to their own location.
+In the case of __four or more players__, players will swap in random locations. Each location will still be teleported to once by only one player; however, randomizing the destinations gives a small chance of some players to not teleport at all since they are "teleporting" to their own location.
+
+# Inspiration
+
+This plugin is inspired by Dream, a famous minecraft youtuber, who has used the Death Swap plugin in a few of his Youtube videos. This plugin is my own take on the classic Death Swap plugin.
