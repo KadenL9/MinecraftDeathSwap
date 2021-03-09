@@ -16,7 +16,7 @@ A Minecraft plugin for spigot and bukkit servers. Based on the classic Minecraft
 
 5.) After the first swap, players will swap positions after a random time between 1 and 3 minutes in which they will have time to set up traps and such.
 
-6.) At the beginning of the game, all settings are set to default survival.
+6.) At the beginning of the game, all settings are set to default survival. Also, players will be put in cages when the plugin is activated and will be released after 5 seconds. They will also be given a condensed book of the rules.
 
 ## Swap Mechanics Based on Number of Players
 Depending on the number of players, the swapping mechanic will work slightly differently.
