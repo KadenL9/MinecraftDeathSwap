@@ -4,10 +4,15 @@ A Minecraft plugin for spigot and bukkit servers. Based on the classic Minecraft
 
 # Rules
 1.) There must be at least 2 players for Minecraft Death Swap to work.
+
 2.) The goal of Minecraft Death Swap is to get the other peson killed when you swap positions before you are killed.
+
 3.) Players are not allowed to enter the nether or the end so it isn't too easy to kill the other players.
+
 4.) At the start of the game, there will be a set time of 5 minutes before the first swap to allow players to obtain necessary materials for survival such as wood, food, and resources.
+
 5.) After the first swap, players will swap positions after a random time between 1 and 3 minutes in which they will have time to set up traps and such.
+
 6.) At the beginning of the game, all settings are set to default survival.
 
 # Swap Mechanics Based on Number of Players
