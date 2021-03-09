@@ -219,10 +219,12 @@ public class Activate implements Listener, CommandExecutor {
 					reop();
 					
 					// get the last player remaining
-					for (Player p : dead) {
-						if (! players.contains(p)) {
-							Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.AQUA + "The winner is " + ChatColor.BOLD + ChatColor.GOLD + p.getName() + ChatColor.AQUA + "!");
-							
+					for (Player p : players) {
+						if (dead.contains(p)) {
+							continue;
+						}
+						else {
+							Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + p.getName() + ChatColor.RESET + ChatColor.LIGHT_PURPLE + " has won the game!");
 						}
 					}
 					
