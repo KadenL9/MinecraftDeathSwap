@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import main.kaden.DeathSwap;
@@ -71,6 +72,16 @@ public class Activate implements Listener, CommandExecutor {
 							// set gamemode to survival
 							p.setGameMode(GameMode.SURVIVAL);
 							
+							// remove any potion effects
+							for (PotionEffect effect : p.getActivePotionEffects()) {
+								p.removePotionEffect(effect.getType());
+							}
+							
+							// give player full health and hunger
+							p.setHealth(20);
+							p.setFoodLevel(20);
+							
+							// deop all players, so they can't cheat
 							if (p.isOp()) {
 								p.setOp(false);
 								deop.add(p);
@@ -241,10 +252,11 @@ public class Activate implements Listener, CommandExecutor {
 			players.add(p);
 		}
 		
+		Bukkit.getServer().broadcastMessage(ChatColor.AQUA + "You have " + ChatColor.BOLD + "" + ChatColor.GOLD + "5" + ChatColor.RESET + ChatColor.AQUA + " minutes to prepare!");
 		
-		// initial random time
-		rTime = randomTime(1200, 4800);
-		System.out.println("Time: " + rTime + " ticks");
+		// set 5 minute starting timer
+		rTime = 6000;
+		System.out.println("Time: 6000 ticks or 300 seconds");
 		
 		new BukkitRunnable() {
 			@Override
@@ -255,7 +267,10 @@ public class Activate implements Listener, CommandExecutor {
 				new BukkitRunnable() {
 					@Override
 					public void run() {
-						Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "30 " + ChatColor.LIGHT_PURPLE + "seconds remaining!");
+						cancelRunnable(this, "30 Second Warning has been cancelled");
+						if (dswapallow) {
+							Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "30 " + ChatColor.LIGHT_PURPLE + "seconds remaining!");
+						}
 					}
 				}.runTaskLater(DeathSwap.getPlugin(DeathSwap.class), rTime - 600);
 				
@@ -264,79 +279,86 @@ public class Activate implements Listener, CommandExecutor {
 					public void run() {
 						cancelRunnable(this, "Countdown Setup has been cancelled");
 						
-						// countdown - when there is 10 seconds remaining
-						sec = 10;
-						new BukkitRunnable() {
-							@Override
-							public void run() {
-								cancelRunnable(this, "Countdown has been cancelled");
-								
-								if (sec != 0) {
-									Bukkit.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE + "Swapping in " + ChatColor.GOLD + sec + "...");
-									sec = sec - 1;
-								}
-								else {
-									this.cancel();
-								}
-							}
-						}.runTaskTimer(DeathSwap.getPlugin(DeathSwap.class), 0, 20);
-						
-						new BukkitRunnable() {
-							@Override
-							public void run() {
-								cancelRunnable(this, "Swapping has been cancelled");
-								
-								players = removePlayers(players, dead);
-								
-								pLocations = getLocations(players);
-								
-								// condition for # of players
-								if (dswapallow) {
-									resetFall(players);
+						if (dswapallow) {
+							// countdown - when there is 10 seconds remaining
+							sec = 10;
+							new BukkitRunnable() {
+								@Override
+								public void run() {
+									cancelRunnable(this, "Countdown has been cancelled");
 									
-									if (players.size() == 2) {
-										players.get(0).teleport(pLocations.get(1));
-										players.get(1).teleport(pLocations.get(0));
-										
-										Bukkit.getServer().broadcastMessage(ChatColor.AQUA + "Players have been swapped!");
+									if (sec != 0) {
+										Bukkit.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE + "Swapping in " + ChatColor.GOLD + sec + "...");
+										sec = sec - 1;
 									}
-									
-									else if (players.size() == 3) {
-										players.get(0).teleport(pLocations.get(1));
-										players.get(1).teleport(pLocations.get(2));
-										players.get(2).teleport(pLocations.get(0));
-									}
-									
-									else if (players.size() <= 1) {
-										Bukkit.getServer().broadcastMessage(ChatColor.RED + "Error! Death Swap has been turned off!");
-										dswapallow = false;
-										reop();
-									}
-									
 									else {
-										for (int x = players.size() - 1; x > 1; x--) {
-											Random rand = new Random();
-											int l = rand.nextInt(x);
+										this.cancel();
+									}
+								}
+							}.runTaskTimer(DeathSwap.getPlugin(DeathSwap.class), 0, 20);
+							
+							new BukkitRunnable() {
+								@Override
+								public void run() {
+									cancelRunnable(this, "Swapping has been cancelled");
+									
+									players = removePlayers(players, dead);
+									
+									pLocations = getLocations(players);
+									
+									// condition for # of players
+									if (dswapallow) {
+										resetFall(players);
+										
+										if (players.size() == 2) {
+											players.get(0).teleport(pLocations.get(1));
+											players.get(1).teleport(pLocations.get(0));
 											
-											players.get(x).teleport(pLocations.get(l));
+											Bukkit.getServer().broadcastMessage(ChatColor.AQUA + "Players have been swapped!");
+										}
+										
+										else if (players.size() == 3) {
+											players.get(0).teleport(pLocations.get(1));
+											players.get(1).teleport(pLocations.get(2));
+											players.get(2).teleport(pLocations.get(0));
+										}
+										
+										else if (players.size() <= 1) {
+											Bukkit.getServer().broadcastMessage(ChatColor.RED + "Error! Death Swap has been turned off!");
+											dswapallow = false;
+											reop();
+										}
+										
+										else {
+											for (int x = players.size() - 1; x > 1; x--) {
+												Random rand = new Random();
+												int l = rand.nextInt(x);
+												
+												players.get(x).teleport(pLocations.get(l));
+											}
 										}
 									}
+									else {
+										this.cancel();
+									}
+									
 								}
-								else {
-									this.cancel();
-								}
-								
-							}
-						}.runTaskLater(DeathSwap.getPlugin(DeathSwap.class), 200);
+							}.runTaskLater(DeathSwap.getPlugin(DeathSwap.class), 200);
+						}
 					}
 				}.runTaskLater(DeathSwap.getPlugin(DeathSwap.class), rTime - 200);
 				
 				new BukkitRunnable() {
 					@Override
-					public void run() {								
-						// reset the time
-						rTime = randomTime(1200, 4800);
-						System.out.println("Time: " + rTime + " ticks");
+					public void run() {
+						cancelRunnable(this, "Reset Timer has been cancelled");
+						
+						if (dswapallow) {
+							// reset the time
+							rTime = randomTime(1200, 3600);
+							int seconds = (int) Math.floor(rTime / 20);
+							System.out.println("Time: " + rTime + " ticks or " + seconds + " seconds");
+						}
 					}
 				}.runTaskLater(DeathSwap.getPlugin(DeathSwap.class), rTime);
 								
@@ -390,18 +412,20 @@ public class Activate implements Listener, CommandExecutor {
 		}
 	}
 	
+	// cancel the swaps when the game has finished or is stopped
 	public void cancelRunnable(BukkitRunnable bk, String msg) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
 				if (! dswapallow) {
-					System.out.println(msg);
+					Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.GRAY + msg);
 					bk.cancel();
 					this.cancel();
 				}
 			}
-		}.runTaskTimer(DeathSwap.getPlugin(DeathSwap.class), 0, 10);
+		}.runTaskTimer(DeathSwap.getPlugin(DeathSwap.class), 0, 1);
 	}
+
 	
 	// give players the rulebook for death swap
 	public void addRuleBook(Player p) {
@@ -419,8 +443,8 @@ public class Activate implements Listener, CommandExecutor {
 		ChatColor.DARK_BLUE + "4. " + ChatColor.DARK_PURPLE + "All players will swap ");	
 		
 		pages.add(
-		ChatColor.DARK_PURPLE + "positions every " + ChatColor.GOLD + "1 " + ChatColor.DARK_PURPLE +  " to " + ChatColor.GOLD + " 4 " + ChatColor.DARK_PURPLE + "minutes which is randomized.\n\n" +
-		ChatColor.DARK_BLUE + "5. " + ChatColor.DARK_PURPLE + "Once you die, you are out of the game and will be put into spectator mode until everyone wins. You will have the ability to teleport to other players");
+		ChatColor.DARK_PURPLE + "positions every " + ChatColor.GOLD + "1 " + ChatColor.DARK_PURPLE +  " to " + ChatColor.GOLD + " 3 " + ChatColor.DARK_PURPLE + "minutes which is randomized. Also, before the first swap, you will have a set 5 minutes to prepare.\n\n" +
+		ChatColor.DARK_BLUE + "5. " + ChatColor.DARK_PURPLE + "Once you die, you're out and will be put into spectator mode until everyone wins. You will have the ability to teleport to other players");
 
 		pages.add(ChatColor.DARK_BLUE + "6. " + ChatColor.DARK_PURPLE + "At the beginning of each game, all inventories are cleared.");
 		
