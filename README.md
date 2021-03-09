@@ -35,4 +35,4 @@ This plugin is inspired by Dream, a famous minecraft youtuber, who has used the 
 
 > If you want to check Dream out or see the classic Death Swap plugin in play, go check out his Youtube channel
 > 
-> <p><a href = "https://www.youtube.com/channel/UCTkXRDQl0luXxVQrRQvWS6w" target = "_blank" rel = "noopener noreferrer"> [[ Dream's Youtube Channel ]] </a></p>
+> <a href = "https://www.youtube.com/channel/UCTkXRDQl0luXxVQrRQvWS6w" target = "_blank" rel = "noopener noreferrer"> [[ Dream's Youtube Channel ]] </a>
