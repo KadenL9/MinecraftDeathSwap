@@ -49,6 +49,10 @@ public class Activate implements Listener, CommandExecutor {
 							sender.sendMessage(ChatColor.RED + "Not enough players! Must have at least 2 players on the server!");
 							return true;
 						}						
+						else if (numPlayers > 10) {
+							sender.sendMessage(ChatColor.RED + "Too many players! Must be at most 10 players on the server!");
+							return true;
+						}
 						
 						glassbreak = false;
 						dswapallow = true;

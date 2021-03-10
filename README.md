@@ -6,7 +6,7 @@ A Minecraft plugin for spigot and bukkit servers. Based on the classic Minecraft
 
 ## Basic Rules
 
-1.) There must be at least 2 players for Minecraft Death Swap to work.
+1.) There must be at least 2 players for Minecraft Death Swap to work. There is also a maximum player limit of 10. If a player tries to join in the middle of an active game, they will be kicked and won't be allowed to join until the game has finished.
 
 2.) The goal of Minecraft Death Swap is to get the other peson killed when you swap positions before you are killed.
 
@@ -18,6 +18,8 @@ A Minecraft plugin for spigot and bukkit servers. Based on the classic Minecraft
 
 6.) At the beginning of the game, all settings are set to default survival. Also, players will be put in cages when the plugin is activated and will be released after 5 seconds. They will also be given a condensed book of the rules.
 
+7.) Once a player is dead, they will be put in adventure mode and will have the ability to fly. They are invisible to all the other players and have the ability to teleport to other players, dead or alive, using the command /teleporter to open a teleporter menu.
+
 ## Swap Mechanics Based on Number of Players
 Depending on the number of players, the swapping mechanic will work slightly differently.
 
@@ -27,7 +29,7 @@ In the case of __two players__, players will swap with each other's positions. T
 
 In the case of __three players__, players will swap with a set location. For example, if there is player 1, 2, and 3, player 1 will always teleport to player 2's location, player 2 will always swap to player 3's location, and player 3 will always swap to player 1's location.
 
-In the case of __four or more players__, players will swap in random locations. Each location will still be teleported to once by only one player; however, randomizing the destinations gives a small chance of some players to not teleport at all since they are "teleporting" to their own location.
+In the case of __four__ to __ten__ players, players will swap in random locations. Each location will still be teleported to once by only one player; however, randomizing the destinations gives a small chance of some players to not teleport at all since they are "teleporting" to their own location.
 
 # Inspiration
 
